@@ -1,0 +1,141 @@
+                          
+                           Call for Papers 
+                              EOOLT 2014
+
+             6th International Workshop on Equation-Based 
+             Object-Oriented Modeling Languages and Tools
+
+                   in cooperation with ACM SIGPLAN
+
+                       Berlin, October 10, 2014
+                      http://www.eoolt.org/2014/
+
+                   ** SUBMISSION DEADLINE JULY 6 (Extended) **
+
+
+SCOPE
+
+During the past decade, integrated model-based design of complex
+cyber-physical systems (which mix physical dynamics with software and
+networks) has gained significant attention. Hybrid modeling languages
+based on equations, supporting both continuous-time and event- based
+aspects (e.g. Modelica, SysML, VHDL-AMS, and Simulink/Simscape) enable
+high-level reuse and integrated capabilities of both the physically
+surrounding system and the software for embedded systems. The EOOLT
+workshop addresses the current state of the art of equation-based
+object-oriented (EOO) modeling languages, as well as open issues that
+currently still limit their expressiveness, correctness, and
+usefulness. Moreover, integration of and comparison with related
+approaches and languages, such as actor-oriented, synchronous, and
+domain-specific languages, are of particular interest. The workshop is
+concerned with, but not limited to, the following EOO related themes
+
+* Acausality and its role in model reusability. 
+* Component systems for EOO languages. 
+* Discrete-event and hybrid modeling.
+* Embedded systems and efficient-code generation. 
+* Modeling language constructs in support of simulation, optimization, 
+  diagnostics, and system identification. 
+* EOO mathematical modeling vs. UML software modeling. 
+* Integrated hardware-software modeling of cyber-physical systems.
+* Requirements for modeling traceability, translation, and integration.
+* Formal semantics of EOO related languages. 
+* Multi-resolution / multi-scale modeling using EOO languages. 
+* Model-driven development related to EOO languages.
+* Numerical coupling of EOO simulators and other simulation tools. 
+* Parallel execution of EOO models. 
+* Programming / modeling environments. 
+* Real-time simulation using EOO languages. 
+* Reflection and meta-programming. 
+* Verification, type systems, and early static checking. 
+* Relation to functional reactive programming (FRP) and synchronous 
+  languages.
+* Comparison with related causal or hybrid formalisms.
+* Functional Mock-up Interface (FMI)
+
+
+
+SUBMISSION
+
+Researchers and practitioners are invited to submit the following
+contributions:
+
+1. Full length research papers: up to 10 pages for consideration by
+the program committee. Papers are welcome that offer presentations and
+discussions of existing languages and tools, their capabilities and
+limitations; reports on practical experience; demonstrations of
+languages, tools, ideas, and concepts; positions related to relevant
+questions; and discussion topics.  
+
+2. Work-in-progress papers: up to 4 pages for consideration by the
+program committee. Papers are welcome that offer presentations and
+discussions of work-in-progress and problem statements that can be
+thoroughly discussed during the workshop.
+
+All submissions must describe original research work, not previously 
+published or submitted for publication elsewhere. The program 
+committee will evaluate the papers' technical contributions, relevance, 
+originality, correctness, and clarity.
+
+IMPORTANT DATES
+
+* Submission deadline: July 6 (extended)
+* Author notification: August 10
+* Camera-ready: September 7
+* Workshop: October 10
+
+
+PUBLICATION
+
+If a paper has been accepted, the authors should present the 
+paper at the workshop. All accepted papers will be published 
+in the ACM digital library within the ACM international 
+conference proceedings series (ICPS).
+
+
+CHAIRS
+
+* Peter Pepper, TU Berlin (General Chair)
+* David Broman, UC Berkeley (PC Chair)
+
+
+STEERING COMMITTEE
+
+* David Broman, UC Berkeley 
+* Francois Cellier, ETH Zurich
+* Peter Fritzson, Linkoping University 
+* Henrik Nilsson, University of Nottingham
+
+
+LOCAL ORGANIZATION
+
+* Christoph Hoger, TU Berlin
+* Alexandra Mehlhase, TU Berlin
+
+
+PROGRAM COMMITTEE
+
+Bernhard Bachmann, University of Applied Sciences, Bielefeld, Germany
+Bert van Beek, Eindhoven University of Technology, Netherlands
+David Broman, University of California, Berkeley, USA (Program Chair)
+Francesco Casella, Politecnico di Milano, Italy
+Francois Cellier, ETH Zurich, Switzerland
+Olaf Enge-Rosenblatt, Fraunhofer Institute, Dresden, Germany
+Peter Fritzson, Linkoping University, Sweden
+Alberto Leva, Politecnico di Milano, Italy
+Henrik Nilsson, University of Nottingham, UK
+Peter Pepper, Technische Universtität Berlin, Germany (General Chair)
+Marc Pouzet, Ecole normale superieure, France
+Gregory Provan, University College Cork, Ireland
+Lena Scholz, Technische Universtitat Berlin, Germany
+Walid Taha, Halmstad University, Sweden and Rice University, USA
+Michael Tiller, Xogeny, USA
+Michael Wetter, Lawrence Berkeley National Laboratory, USA
+Alfonso Urquia, UNED, Madrid, Spain
+Dirk Zimmer, DLR Oberpfaffenhofen, Germany
+
+
+WORKSHOP WEBSITE
+
+http://www.eoolt.org/2014  
+
