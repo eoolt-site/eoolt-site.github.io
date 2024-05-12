@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>EOOLT 2008 – 2nd International Workshop on Equation-Based
+Object-Oriented Languages and Tools</title>
+<meta name="description" content="EOOLT 2008 – 2nd International Workshop on Equation-Based
+Object-Oriented Languages and Tools"> 
+<meta name="keywords" content="EOO OO Workshop Modelica VHDL-AMS gPROMS model differential algegraic equations DAE equation object oriented languages"> 
+<meta content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="main.css" type="text/css" media="screen, projection">
+</head>
+<body>
+
+
+<img src="top.jpg" width=760 hight=70><div class="menu"><li><a href="index.html">home</a></li><li><a href="cfp.html">call for papers</a></li><li><a href="org.html">organization</a></li><li><a href="pc.html">program committee</a></li></div>
+
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 >
+<tr><td width=135 valign=top align=left class="submenu">
+<h2>News</h2><hr>
+<b>March 29</b><br>
+Submission information, including templates and author guidelines, are <a href="cfp.html#submission">now available here</a>.
+<p>
+<b>March 28</b><br>
+CFP flyer and printable posters <a href="cfp.html">are now available for download</a>.
+<p>
+<b>February 26</b><br>
+First version of the workshop site, including CFP.
+</td>
+<td>
+<div class="maintext">
+
+<h1>EOOLT - July 8, 2008, Paphos, Cyprus</h1>
+<a href="http://2008.ecoop.org/">Part of ECOOP 2008</a><br>
+
+
+
+<img src="lemesospa.jpg" class="picright">
+
+
+
+<p>
+Computer aided modeling and simulation of complex systems, using components from multiple application domains, such as electrical, mechanical, hydraulic, control, etc., have in recent years witnessed a significant growth of interest. In the last decade, novel modeling and simulation languages, (e.g. Modelica, gPROMS, Chi, Verilog-AMS, and VHDL-AMS) based on acausal modeling using differential algebraic equations (DAEs) have appeared. Using such languages, it has become possible to model complex systems covering multiple application domains at a high level of abstraction through reusable model components. In the last couple of years the name equation-based object-oriented (EOO) language has been introduced to denote modeling languages within this category.
+<p>
+The EOOLT Workshop addresses the current state of the art of EOO modeling languages as well as open issues that currently still limit the expression power, correctness, and usefulness of such languages through a set of full-length presentations and forum discussions.
+<p>
+Researchers and practitioners are invited to submit full-length research papers (up to 10 pages) for consideration by the program committee.
+
+
+<h2>Motivation</h2>
+The interest in EOO languages and tools is rapidly growing in the industry because of their increasing importance in modeling, simulation, and specification of complex systems. There exist several different modeling language communities today that grew out of different application areas (multi-body system dynamics, electronic circuit simulation, chemical process engineering).  The members of these disparate communities rarely talk to each other in spite of the similarities of their modeling and simulation needs.
+<p>
+The EOOLT Workshop aims at bringing these different communities together to discuss their common needs and goals as well as language semantics, algorithms, and tools that best support them. Moreover, the aim is also to augment the computer science perspective within this community, making contributes from this area particular welcome.
+
+
+
+<dl>
+
+<p>
+
+</div>
+
+</td></tr></table>
+
+
+
+
+</body>
+</html>          
+
+
+
+
+
+
