@@ -1,0 +1,188 @@
+
+/* ------------------------------------------------------------
+	NUMBER OF COLUMNS: Adjust .blockchart li to set the number
+	of columns required in your site map. The default is 
+	4 columns (25%). 5 columns would be 20%, 6 columns would 
+	be 16.6%, etc. 
+------------------------------------------------------------ */
+
+.blockchart li {
+	width:25%;
+}
+
+.blockchart li ul li {
+	width:100% !important;
+}
+
+.sitemap ul {
+	list-style: none;
+}
+
+.blockchart.col1 li { width:99.9%; }
+.blockchart.col2 li { width:50.0%; }
+.blockchart.col3 li { width:33.3%; }
+.blockchart.col4 li { width:25.0%; }
+.blockchart.col5 li { width:20.0%; }
+.blockchart.col6 li { width:16.6%; }
+.blockchart.col7 li { width:14.2%; }
+.blockchart.col8 li { width:12.5%; }
+.blockchart.col9 li { width:11.1%; }
+.blockchart.col10 li { width:10.0%; }
+
+/* ------------------------------------------------------------
+	General Styles
+------------------------------------------------------------ */
+
+
+
+/* ------------------------------------------------------------
+	Site Map Styles
+------------------------------------------------------------ */
+
+/* --------	Top Level --------- */
+
+.blockchart {
+	margin: 0;
+	float: left;
+	width: 100%;
+}
+.blockchart #home {
+	background: rgb(255,255,255) url('../images/L1-left.png') center bottom no-repeat;
+	display: block;
+	float: none;
+	position: relative;
+	z-index: 2;
+	padding: 0 0 30px 0;
+}
+.blockchart li {
+	float: left;	
+	padding: 30px 0;
+	background: url('../images/L1-center.png') center top no-repeat transparent;
+	margin-top: -30px;
+}
+.blockchart .text {
+	margin: 0 20px 0 0;
+	padding: 10px 0;
+	display: block;
+	text-align: center;
+	border-width: 1px;
+	border-style: solid;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-webkit-box-shadow: rgba(0,0,0,0.5) 2px 2px 2px; 
+	-moz-box-shadow: rgba(0,0,0,0.5) 2px 2px 2px; /* FF 3.5+ */	
+}
+
+.blockchart li:last-child {
+	
+}
+.blockchart li:last-child {
+	background: url('../images/L1-right.png') center top no-repeat;
+}
+.blockchart li a:link:before,
+.blockchart li a:visited:before {
+	color: #78a9c0;
+}
+
+/* --------	Second Level --------- */
+
+.blockchart li li {
+	width: 100%;
+	clear: left;
+	margin-top: 0;
+	padding: 10px 0 0 0;
+	background: url('../images/vertical-line.png') center bottom repeat-y;
+}
+.blockchart li li:first-child {
+	padding-top: 30px;
+}
+.blockchart li li:last-child {
+	background: url('../images/vertical-line.png') center bottom repeat-y;
+}
+
+
+/* --------	Third Level --------- */
+
+.blockchart li li ul {
+	margin: 10px 0 0 0;
+	width: 100%;
+	float: right;
+	padding: 9px 0 10px 0;
+	background: #ffffff center top no-repeat;
+}
+.blockchart li li li {
+	background: left center no-repeat;
+	padding: 5px 0;
+}
+.blockchart li li li .text {
+	font-size: 12px;
+	padding: 5px 0;
+	width: 80%;
+	float: right;
+}
+
+.blockchart li li li:first-child {
+	padding: 15px 0 5px 0;
+	background: left center no-repeat;
+}
+.blockchart li li li:last-child {
+	background: left center no-repeat;
+}
+
+
+/* ------------------------------------------------------------
+	Utility Navigation
+------------------------------------------------------------ */
+
+.legend {
+	float: right;
+	max-width: 50%;
+	margin-right: 10px;
+}
+.legend li {
+	float: left;
+	margin-bottom: 10px;
+}
+.legend li .text {
+	margin: 0 10px 0 0;
+	padding: 5px 10px;
+	display: block;	
+	text-align: center;
+}
+
+.info {
+    color: rgb(255, 255, 255);
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+    background-color: rgb(73, 175, 205);
+    background-image: linear-gradient(to bottom, rgb(91, 192, 222), rgb(47, 150, 180));
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+
+.todo {
+    color: rgb(255, 255, 255);
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+    background-color: rgb(218, 79, 73);
+    background-image: linear-gradient(to bottom, rgb(238, 95, 91), rgb(189, 54, 47));
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+.wip {
+    color: rgb(255, 255, 255);
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+    background-color: rgb(250, 167, 50);
+    background-image: linear-gradient(to bottom, rgb(251, 180, 80), rgb(248, 148, 6));
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+.done {
+    color: rgb(255, 255, 255);
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+    background-color: rgb(91, 183, 91);
+    background-image: linear-gradient(to bottom, rgb(98, 196, 98), rgb(81, 163, 81));
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}

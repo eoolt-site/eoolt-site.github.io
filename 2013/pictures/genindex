@@ -1,0 +1,38 @@
+#!/bin/sh
+
+shopt -s nullglob
+
+dir=`basename \`pwd\``
+# psdir=Portrait
+
+rm links.html 2> /dev/null
+
+for img in *.JPG
+do
+    mv ${img} `basename ${img} .JPG`.jpg
+done
+
+# cd ${psdir}
+# for img in *.JPG
+# do
+#     mv ${img} `basename ${img} .JPG`.jpg
+# done
+# cd ..
+
+for img in *.jpg
+do
+    thmb=`basename ${img} .jpg`-thmb.jpg
+    echo "${img} -> ${thmb}"
+    jpegtopnm ${img} | pnmscale -width=150 | pnmtojpeg > ${thmb}
+    echo "<a href=\"${dir}/${img}\"><img src=\"${dir}/${thmb}\"></a>" \
+         >> links.html
+done
+
+# for img in ${psdir}/*.jpg
+# do
+#     thmb=`basename ${img} .jpg`-thmb.jpg
+#     echo "${img} -> ${thmb}"
+#     jpegtopnm ${img} | pnmscale -height=300 | pnmtojpeg > ${thmb}
+#     echo "<a href=\"${dir}/${img}\"><img src=\"${dir}/${thmb}\"></a>"\
+#           >> links.html
+# done

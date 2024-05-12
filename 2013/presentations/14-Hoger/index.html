@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Modim - a JVM implementation of Modelica</title>
+	
+	<meta name="description" content="Modelica Incremental Modules">
+	<meta name="author" content="Christoph Höger" >
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="deck.js/core/deck.core.css">
+	<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="deck.js/extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+	<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="css/tuberlin.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="deck.js/themes/transition/horizontal-slide.css">
+	
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="css/font-awesome.css">	
+	
+	<script src="deck.js/modernizr.custom.js"></script>
+	
+	<!-- Flot plotting -->
+	<link href="flot/examples/examples.css" rel="stylesheet" type="text/css">
+  <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="flot/excanvas.min.js"></script><![endif]-->
+  <script language="javascript" type="text/javascript" src="flot/jquery.js"></script>
+  <script language="javascript" type="text/javascript" src="flot/jquery.flot.js"></script>
+	<script language="javascript" type="text/javascript" src="flot/jquery.flot.selection.js"></script>
+
+  <!-- slickmap for block gfx-->
+	<link rel="stylesheet" type="text/css" media="screen, print" href="css/slickmap.css" />
+	
+	<!-- Code Mirror -->
+	<link rel="stylesheet" href="deck.js-codemirror/deck.codemirror.css">
+  <link rel="stylesheet" href="deck.js-codemirror/themes/default.css">
+  
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="title-slide">
+<header>
+      <h1>Modelica on the Java Virtual Machine</h1>
+      
+      <div style="padding-left: 49px; margin-bottom: 50px">Eoolt 2013, Nottingham, UK</div>
+	<p style="padding-left: 49px;">
+	  <br>
+          Christoph Höger
+          <br>
+          <a href="mailto:christoph.hoeger@tu-berlin.de"><tt>christoph.hoeger@tu-berlin.de</tt></a>          
+          <br>
+          Technische Universität Berlin
+          <br>
+          19.04.2013
+    </p>
+</section>
+
+<section class="slide" id="outline">
+	<h2>Agenda</h2>
+	<ol>
+		<li>
+			<h3>Motivation</h3>
+			<p>What is this guy talking about?</p>
+		</li>
+		<li>
+			<h3>Compiling Modelica ...</h3>
+			<p>Difficulties &amp; solutions.</p>
+		</li>
+		<li>
+			<h3>... and Simulate the Result</h3>
+			<p>Finally getting a plot.</p>
+		</li>
+		<li>
+		<h3>State of the implementation</h3>
+			<p>A few facts and figures.</p>
+		</li>
+		<li>
+			<h3>Questions</h3>
+			<p>Room for your questions.</p>
+		</li>
+	</ol>
+</section>
+
+<section class="slide" id="motivation">
+	<h1>Motivation</h1>
+</section>
+
+<section class = "slide" id="definition">
+<h2>Definition of Compilation</h2>
+<p>Contrary to popular belief, most current implementations do not <em>compile</em> Modelica.</p>
+<blockquote Style="font-size:40px;">
+  <p>[Given language semantics ⟦⟧<sub>L,S,T</sub>] Formally, c is an S-to-T compiler written in L, if for all sources, d ∈ D:<p>
+  <p>⟦⟦c⟧<sub>L</sub> source⟧<sub>T</sub> d = ⟦source⟧<sub>S</sub> d</tt> <tt></tt></p>
+  <p><cite>N. Jones, Partial Evaluation</cite></p>
+</blockquote>
+
+<div class="slide">
+<p>Depending on the model, the user might provide e.g. <em>structural</em> parameters:</p>
+
+<pre>
+model A
+  parameter Real p; 
+  Real x if p > 0;
+end A;
+</pre>
+</div>
+<!--
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="190">
+  <polygon points="100,10 40,180 190,60 10,60 160,180"
+  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;">
+</svg>
+-->
+</section>
+
+<section class="slide" id="motivation2">
+<h2>What does that mean?</h2>
+  <ul>
+    	<li>Modelica Models are <em>composable</em></li>
+  </ul>
+  <img src="images/OLine.png" width="788" height="180" alt="" />
+  <ul class="slide">
+    	<li>Translated Modelica Models are <em>non-composable</em></li>
+	   <li>You cannot check, compile and ship your library.</li>  
+  </ul>
+</section>
+
+<section class="slide" id="motivation3">
+<h2>What does that mean?</h2>
+  <ul>
+    	<li>Modelica Models do not scale optimally.</li>
+    	<li>Generated code grows linearly with # of model instances:</li>
+  </ul>
+  <img class="slide" src="images/dymola_sizes.svg"/>
+  <ul class="slide">
+    	<li>Sometimes instantiation may take longer than simulation.</em></li>
+    	<li>This hurts especially during development</li>
+  </ul>
+</section>
+
+<section class="slide" id="motivation2">
+  <h2>What does that mean?</h2>
+  <ul>
+    	<li><em>variable - structure models</em> and (separate) compilation share a common solution.</li>
+  </ul>
+  <video class="slide" src="videos/bouncing_ball.webm" autoplay="autoplay" width="800" height="400"  controls="controls"></video>
+</section>
+
+<section class="slide" id="subsection2">
+	<h1>Compiling Modelica to Java</h1>
+</section>
+
+<section class="slide" id="compilation0">
+	<h2>General Considerations</h2>
+	<p class="slide">When compiling, the target language usually is in some sense simple than the target language:</p>
+	<ul class="slide">
+		<li class="slide">less abstract/declarative</li>
+		<li class="slide">more verbose</li>
+		<li class="slide">hardware implemented</li>
+		<li class="slide">etc.</li>	
+	</ul> 
+ <p class="slide">In case of Modelica (or any other equation based modeling language), we want to translate equations and models into something more "computational".</p>
+ <p class="slide">This talk will focus largely on model instantiation.</p>
+</section>
+
+<section class="slide" id="compilation0">
+	<h2>Java as target language</h2>
+	<p class="slide">Compilation to Java is a novelty for Modelica. This was a (successful) experiment to determine, whether the JVM can actually host Modelica.</p>
+	<p class="slide">Reasons for Java:</p>
+	<ul class="slide">
+		<li class="slide">Already has an uniform object system</li>
+		<li class="slide">Already has garbage collection</li>
+		<li class="slide">Offers bytecode reflection</li>
+		<li class="slide">Will support higher order functions natively</li>
+		<li class="slide">Good integration with compiler</li>	
+	</ul> 
+ <p class="slide">In fact, also LLVM or even x86 assembler would be suitable, but require some additional work.</p>
+</section>
+
+<section class="slide" id="compilation1">
+	<h2>Structural records</h2>
+	<p>Modelica's objects can be used in contexts that expect a smaller record:</p> 
+	<div Style="columns: 2 auto; -moz-columns: 2 auto; -webkit-columns: 2 auto; column-gap: normal;" > 
+ <div Style="float:left">	
+	<pre>
+  record A
+    Real x;
+  end A;
+	
+  record B
+    Real x,y;
+  end B;
+	
+  function f
+    input A a;
+    output Real y = a.x;
+  end f;
+	
+  Real z = f(B(1.0, 0.0)); //legal!
+	</pre>
+	</div>
+	<div class="slide" Style="float : right;">
+	<pre>
+  class JB extends MObject {
+    Object x, y;
+    
+    ...
+    
+    Object get(final String name) {
+      switch(name) {
+        case "x": return x;
+        case "y": return y;
+        case default: 
+          throw new IllegalArgException(name);      
+      }    
+    }
+  }
+	</pre>
+	</div>
+	</div><base target="" />
+	<p class="slide">The success of <tt>get</tt> can be guaranteed by static typechecking.</p>
+</section>
+
+<section class="slide" id="compilation2">
+	<h2>Multiple Inheritance</h2>
+	<p>Modelica's classes can inherit from multiple sources:</p> 
+	<div Style="columns: 2 auto; -moz-columns: 2 auto; -webkit-columns: 2 auto; column-gap: normal;" > 
+	<div><pre>
+  record A
+    Real x;
+  end A;
+	
+  record B
+    Real y;
+  end B;	
+	
+  record C
+    extends A;
+    extends B;
+  end C;
+	
+  C c(x=1.0, y=0.0);
+  Real z = c.y;
+	</pre></div>
+	<div class="slide"><pre>
+  class JC extends MObject {
+    JA superclass1; 
+    JB superclass2; 
+	
+	  ...
+	   
+    Object get(final String name) {
+      switch(name) {
+        case "x": return superclass1.x;
+        case "y": return superclass2.y;
+        case default: 
+          throw new IllegalArgException(name);      
+      }    
+    }
+  } 
+	</pre></div>
+  </div>
+  <p class="slide">Fortunately, super classes cannot be redeclared in Modelica!</p> 
+</section>
+
+<section class="slide" id="compilation3">
+	<h2>Redefinitions</h2>
+	<p>Fields of Modelica's classes can be defined on the creation site:</p> 
+	<div Style="columns: 2 auto; -moz-columns: 2 auto; -webkit-columns: 2 auto; column-gap: normal;" > 
+	<div><pre>
+  record A
+    Real x;
+  end A;
+	
+  record B
+    Real x,y;
+  end B;	
+	
+  record C
+    A a(x=1.0));
+  end C;
+  C c(a = B(x=2.0, y=0.0)));
+  Real z = c.x; //2.0
+	</pre></div>
+	<div class="slide"><pre >
+  class JC extends MObject {
+
+		 MObject a;    
+    
+    public JC(MObject ctxt, ...) {
+      this.a = (MObject) ctxt.
+        getOrEval("a", JA.
+          CREATE_NEW.apply(1.0)));   
+      ... 
+    }
+    
+    
+  } 
+	</pre></div>
+  </div>
+  <p class="slide">Every class takes a context parameter (holding all modifications). In case the ctxt does not provide a value, the default constructor is called.</p> 
+</section>
+
+<section class="slide" id="compilation4">
+	<h2>Redefinitions</h2>
+	<p>Type applications are reflected at object level</p> 
+	<div Style="columns: 2 auto; -moz-columns: 2 auto; -webkit-columns: 2 auto; column-gap: normal;" > 
+	<div><pre>
+  record A
+    Real x=1.0;
+  end A;
+	
+  record B
+    Real x=2.0,y=1.0;
+  end B;	
+	
+  record C
+    replaceble record R = A;
+    A a;
+  end C;
+  C c(redeclare record R = B);
+  
+  Real z = c.x; //2.0
+	</pre></div>
+	<div class="slide"><pre >
+  class JC extends MObject {
+
+    MFunction create_a;    
+    
+    public JC(MObject ctxt, ...) {
+    		this.create_a = (MFunction) ctxt.getOrElse("$create_a", JA.CREATE_NEW);
+      this.a = create_a.apply();  
+      ... 
+    }
+    
+    
+  } 
+	</pre></div>
+  </div>
+  <p class="slide">Every type is translated into an <em>instantiation</em> function. Type redeclaration is translated into a modification of this function.</p> 
+</section>
+
+<section class="slide" id="frontend-types">
+  <h2>Type Evaluation</h2>
+  <p>Modelica contains rather complicated type-expressions:</p>
+  <ul>
+    <li>Multiple Inheritance</li>
+    <li>Bounded Quantification</li>
+    <li>Higher-order types</li>  
+  </ul>
+  <p>In particular, there is no specific order of type evaluation specified in Modelica.</p>
+    <p>Modim evaluates types <em>lazily</em>:</p>
+  
+<div>
+  <div>
+  <pre>
+  case class NamedType(name : List[String], 
+  		expr : TExp, 
+  		context : Either[NamedType, Map[String, Type]], 
+  		sort : Sort = Class, 
+  		actualParams : Map[String, Type] = Map()) extends Type
+  		</pre>
+  </div>
+  </div>
+</section>
+
+<section class="slide" id="subsection3">
+	<h1>Compile Modelica &amp; and Simulate the Result</h1>
+</section>
+
+<section class="slide" id="simulation">
+<h2>Nice, but how do you simulate?</h2>
+<p>Simulation is not the main topic of this talk, but a few hints:</p>
+<div Style="columns: 2 auto; -moz-columns: 2 auto; -webkit-columns: 2 auto; column-gap: normal;" >
+<div><img src="images/bounce.png"></img></div>
+<div>
+<ul>
+  <li  class="slide">Equations are higher-order functions taking an unknown and yielding a real-valued function over time.</li>
+  <li class="slide">Currently, composition is just "collect them in a list"</li>
+  <li  class="slide">Causalisation &amp; Index reduction are handled at startup</li>
+  <li  class="slide">Every expression is compiled to code and some symbolic informations are kept additionally.</li>
+  <li  class="slide">Integrators are pure-Java implementations from <tt>apache.commons.math3</tt></li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="slide" id="subsection4">
+	<h1>Facts &amp; Figures</h1>
+</section>
+
+<section class="slide" id="facts">
+  <h2>A few facts and figures</h2>
+  <p>Modim (Modelica Incremental Modules) is a toolchain for the <em>separate compilation</em> of Modelica models</p>
+  <ul>
+   <li>Modim currently contains of: 
+   	  <ul style="list-style:none;">
+   	  	<li> ~ 6000 lines of scala (frontend and coder)</li>
+   	  	<li> ~ 3500 lines of Java (runtime)</li>
+   	  	<li> ~ 1000 lines of html-templates (user interface) </li>
+  	  </ul>
+  	  </li>
+   <li>Modim is free software under the LGPL</li>
+   <li>Built using <a href="http://scala-sbt.org">sbt</a> (compatible to maven)</li>
+   <li>Source code managed via <a href="http://git-scm.org">git</a></li>
+   <li>Project will be hosted under <a href="https://mlcontrol.uebb.tu-berlin.de/redmine/projects/modim"> a redmine instance</a>
+  </ul>
+</section>
+
+<section class="slide" id="modim_overview">
+	<h2>Current Modules</h2>
+	<div class="sitemap">
+		<ul class="legend">
+			<li><p class="text done">Usable</a></li>
+			<li><p class="text wip">Work in progress</a></li>
+			<li><p class="text todo">To be done</a></li>
+		</ul>
+		
+	  <ul class="blockchart" style="width: 90%">
+	  	<li id="home"><p class="text info">Modim</p></li>
+     <li><p class="text info">Frontend</p>
+       <ul><li><p class="text done">Abstract Syntax</p></li>
+         <li><p class="text done">Parser</p></li>
+         <li><p class="text done">Type Evaluator</p></li>
+         <li><p class="text todo">Type Checker</p></li>
+       </ul>
+     </li>
+     
+     <li><p class="text info">Coder</p>
+        <ul><li><p class="text done">Models</p></li>
+         <li><p class="text wip">Functions</p></li>
+         <li><p class="text done">Equations</p></li>
+         <li><p class="text wip">Relations</p></li>            
+       </ul> 
+     </li>
+     <li><p class="text info">Runtime</p>
+       <ul><li><p class="text done">Instantiation</p></li>
+         <li><p class="text wip">Simulation</p></li>
+       </ul>     
+     </li>
+     <li><p class="text info">User Interface</p>
+       <ul><li><p class="text done">Type Inspection</p></li>
+         <li><p class="text wip">Simulation</p></li>
+         <li><p class="text wip">Verification</p></li>         
+       </ul>  
+     </li>
+	  </ul>
+	</div>
+</section>
+
+<section class="slide" id="instantiation performance">
+<h2>Instantiation Performance</h2>
+<div Style="columns: 2 auto; -moz-columns: 2 auto; -webkit-columns: 2 auto; column-gap: normal;" >
+<div style="float:left">
+<pre>
+model Faculty "recurses n! times"
+  constant Integer n;
+  
+  Faculty[n] faculties(each n = n - 1) 
+    if (n > 1);
+  
+  Real root if n == 1;
+end Faculty;
+</pre>
+<p>This model is an instantiation stress-test:</p>
+</div>
+<div class="slide" style="float:left">
+<p>Compiled to Java we can instantiate an insane amount of instances:</p>
+<table class="table table-striped table-bordered">
+<thead>
+<tr><th>n</th><th>variables</th><th>instances</th><th>time</th></tr>
+</thead>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>15ms</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td>20ms</td>
+</tr>
+<tr>
+<td>3</td>
+<td>6</td>
+<td>10</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>24</td>
+<td>41</td>
+<td>2ms</td>
+</tr>
+<tr>
+<td>5</td>
+<td>120</td>
+<td>206</td>
+<td>10ms</td>
+</tr>
+<tr>
+<td>6</td>
+<td>720</td>
+<td>1237</td>
+<td>60ms</td>
+</tr>
+<tr>
+<td>7</td>
+<td>5040</td>
+<td>8660</td>
+<td>308ms</td>
+</tr>
+<tr>
+<td>8</td>
+<td>40320</td>
+<td>69281</td>
+<td>476ms</td>
+</tr>
+<tr>
+<td>9</td>
+<td>362880</td>
+<td>623530</td>
+<td>873ms</td>
+</tr>
+</table>
+</div>
+</div>
+</section>
+
+<section class="slide" id="modim_overview">
+	<h2>Conclusion</h2>
+	
+	<ul>
+   <li>Modelica can be compiled separately to Java</li>
+   <li>Instantiation performance is quite good</li>
+	</ul>
+</section>
+
+<section class="slide" id="modim_overview">
+	<h2>Future Work</h2>
+	
+	<ul>
+   <li>Automatic Differentiation &amp; Index Reduction (now in progress)</li>
+   <li>Dynamic Optimizations (now in progress)</li>
+   <li>Type Checking</li>
+   <li>Tests</li>
+   <li>Event handling in the code generator</li>
+   <li>Java 8 port (higher order functions &amp; partial application)</li>
+	</ul>
+</section>
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="deck.js/core/deck.core.js"></script>
+<script src="deck.js/extensions/hash/deck.hash.js"></script>
+<script src="deck.js/extensions/menu/deck.menu.js"></script>
+<script src="deck.js/extensions/goto/deck.goto.js"></script>
+<script src="deck.js/extensions/status/deck.status.js"></script>
+<script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+<script src="deck.js/extensions/scale/deck.scale.js"></script>
+
+<!-- Base codemiror code -->
+<script src="deck.js-codemirror/codemirror.js"></script>
+
+<!-- Syntax highlighting Modes -->
+
+<!-- javascript -->
+<script src="deck.js-codemirror/mode/javascript/javascript.js"></script>
+
+<!-- html mode (note html mode requires xml, css and javascript) -->
+<script src="deck.js-codemirror/mode/clike/clike.js"></script>
+<script src="deck.js-codemirror/mode/xml/xml.js"></script>
+<script src="deck.js-codemirror/mode/css/css.js"></script>
+<script src="deck.js-codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+<!-- Plugin code -->
+<script src="deck.js-codemirror/deck.codemirror.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+<section class="slide" id="title-slide">
+	<h2>Thank you for your attention!</h2>
+	<div class="slide centered">Interested?</div>
+	<div class="slide" style="text-align: center">
+	<a href="https://mlcontrol.uebb.tu-berlin.de/redmine/projects/modim">https://mlcontrol.uebb.tu-berlin.de/redmine/projects/modim</a>
+	<div class="slide centered">Questions?</div>
+	</div>
+</section>
+
+</body>
+</html>

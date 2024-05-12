@@ -1,0 +1,139 @@
+﻿				  EOOLT 2013
+
+			5th International Workshop on
+	 Equation-Based Object-Oriented Modeling Languages and Tools
+
+			Nottingham, UK, 19 April, 2013
+
+
+                  ***   Extended submission deadlines:   ***
+                  ***    Abstracts: 8 February, 2013     ***
+                  ***   Full papers: 18 February, 2013   ***
+
+                                     also
+
+         *** Other contributions, such as tool demos: 8 February ***
+
+			       CALL FOR PAPERS
+
+
+During the past decade, integrated model-based design of complex cyber-
+physical systems (which mix physical dynamics with software and networks) has
+gained significant attention. Hybrid modeling languages based on equations,
+supporting both continuous-time and event-based aspects (e.g. Modelica, SysML,
+VHDL-AMS, and Simulink/Simscape) enable high-level reuse and integrated
+modeling capabilities of both the physically surrounding system and software
+for embedded systems. The EOOLT workshop addresses the current state of the
+art of such equation-based object-oriented (EOO) modeling languages, as well
+as open issues that currently still limit their expressiveness, correctness,
+and usefulness. Moreover, integration of and comparison with related
+approaches and languages, such as actor-oriented, synchronous, and domain
+specific languages, are of particular interest. Specific topics of
+interest include (but are not limited to):
+
+  o Acausality and its role in model reusability. 
+  o Component systems for EOO languages. 
+  o Discrete-event and hybrid modeling.
+  o Embedded systems and efficient code generation. 
+  o Modeling language constructs in support of simulation, optimization, 
+    diagnostics, and system identification. 
+  o EOO mathematical modeling vs. UML software modeling. 
+  o Integrated hardware and software modeling of cyber-physical systems.
+  o Requirement to model traceability, translation, and integration.
+  o Formal semantics of EOO related languages. 
+  o Multi-resolution and multi-scale modeling using EOO languages. 
+  o Model-driven development related to EOO languages.
+  o Numerical coupling of EOO simulators and other simulation tools. 
+  o Parallel execution of EOO models. 
+  o Programming and modeling environments. 
+  o Real-time simulation using EOO languages. 
+  o Reflection and meta-programming. 
+  o Verification, type systems, and early static checking. 
+  o Relation to functional reactive programming (FRP) and 
+    synchronous languages.
+
+
+SUBMISSION
+
+Researchers and practitioners are invited to submit full-length papers (up to
+10 pages, EOOLT style, written in English) for consideration by the program
+committee. Papers must be original, and not submitted for simultaneous
+publication in any other forum. EOOLT welcomes original research contributions
+as well as contributions with a focus on practice, such as experience reports
+and comparisons of existing languages and tools. Each contributions will be
+judged according to criteria appropriate for its kind. For submission details,
+see the EOOLT 2013 website (link below).
+
+
+OTHER CONTRIBUTIONS
+
+To allow for a more dynamic workshop format, the EOOLT PC will, subject to
+space in the program, consider proposals for other kinds of program points,
+such as tool demonstrations or discussion sessions on some timely topics in
+the scope of EOOLT. Such proposals will be judged by the PC as a whole on the
+grounds of how much interest they add to the workshop, and they should thus
+not be confused with formally peer-reviewed contributions. That said, if
+considered appropriate and useful, the PC may invite a short (1 - 2 pages)
+written outline for inclusion in the workshop proceedings (clearly labeled
+to distinguish it from regular papers). For further details, see the EOOLT
+2013 website (link below).
+
+
+IMPORTANT DATES: SUBMISSION DEADLINE EXTENDED
+
+Abstract Submission Deadline:		8 February
+Proposals for Other Contributions:	8 February
+Full Paper Submission Deadline:		18 February
+Author Notification:			8 March
+Camera Ready:				22 March
+Workshop:				19 April
+
+
+PUBLICATION
+
+Accepted papers will be published electronically by Linköping University
+Electronic Press. Authors of accepted papers should present their paper
+at the workshop.
+
+
+WORKSHOP ORGANISATION
+
+Chair:
+
+Henrik Nilsson, University of Nottingham
+
+Program Committee:
+
+Bernhard Bachmann, University of Applied Sciences, Bielefeld
+Bert van Beek,  Eindhoven University of Technology 
+David Broman, U.C. Berkeley and Linköping University
+Francesco Casella, Politecnico di Milano 
+François Cellier, ETH Zürich 
+Olaf Enge-Rosenblatt, Fraunhofer Institute, Dresden 
+Peter Fritzson, Linköping University
+Michaela Huhn, Clausthal University of Technology
+Edward A. Lee, U.C. Berkeley
+Pieter Mosterman, MathWorks
+Ramine Nikoukhah, INRIA Rocquencourt and Altair
+Chris Paredis, Georgia Institute of Technology 
+Peter Pepper, TU Berlin
+Walid Taha, Halmstad University and Rice University
+Alfonso Urquía, UNED, Madrid
+Hans Vangheluwe, McGill University and University of Antwerp
+Justyna Zander, MathWorks and Gdansk University of Technology
+Dirk Zimmer, DLR Oberpfaffenhofen 
+
+Steering Committee:
+
+David Broman,  U.C. Berkeley and Linköping University
+François E. Cellier, ETH Zürich
+Peter Fritzson, Linköping University 
+Edward A. Lee, U.C. Berkeley
+
+Local Organisation:
+
+John Capper, University of Nottingham
+Henrik Nilsson, University of Nottingham
+
+For further details, including on submission, see the EOOLT 2013 website:
+www.eoolt.org/2013
