@@ -6,3 +6,4 @@ all:
 	@./makepage.sh index
 	@./makepage.sh org
 	@./makepage.sh program
+	@./makepage.sh attending
